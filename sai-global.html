@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sai Global – Document Consulting Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+      --accent: #b5852a;
+      --accent-light: #f5ead6;
+      --bg: #fafaf7;
+      --white: #ffffff;
+      --border: #e4e0d8;
+      --section: #f2efe8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 6vw;
+      background: rgba(250, 250, 247, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      background: var(--ink);
+      color: var(--white) !important;
+      padding: 9px 22px;
+      border-radius: 4px;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 6vw 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--bg) 60%, var(--accent-light) 100%);
+      z-index: 0;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.45;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 700px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      border: 1px solid #e8d4aa;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.7s ease 0.3s both;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--white);
+      padding: 14px 32px;
+      border: none;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      padding: 14px 32px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover { border-color: var(--ink); }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 6vw;
+      display: flex; align-items: center; gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .trust-divider { width: 1px; height: 24px; background: var(--border); }
+
+    .trust-items {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.875rem; color: var(--muted);
+    }
+
+    .trust-item .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* SERVICES */
+    .section {
+      padding: 100px 6vw;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 520px;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 36px 32px;
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .service-card:hover { background: var(--section); }
+
+    .service-icon {
+      width: 44px; height: 44px;
+      background: var(--accent-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.2rem;
+    }
+
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* HOW IT WORKS */
+    .how-section {
+      background: var(--section);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+    }
+
+    .step {
+      display: flex; flex-direction: column; gap: 1rem;
+      position: relative;
+    }
+
+    .step-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 500;
+      color: var(--border);
+      line-height: 1;
+    }
+
+    .step h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .step p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    /* WHY CHOOSE US */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: center;
+    }
+
+    .why-list {
+      display: flex; flex-direction: column; gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .why-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .why-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .why-check {
+      width: 28px; height: 28px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 0.75rem;
+      color: var(--accent);
+    }
+
+    .why-item h5 {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .why-item p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .why-visual {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+
+    .stat-row {
+      display: flex; justify-content: space-between; gap: 1.5rem;
+    }
+
+    .stat-box {
+      flex: 1;
+      background: var(--section);
+      border-radius: 8px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .stat-box .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .stat-box .stat-num span { color: var(--accent); }
+
+    .stat-box .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .testimonial-box {
+      background: var(--accent-light);
+      border-radius: 8px;
+      padding: 24px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .testimonial-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: var(--ink);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    .testimonial-author {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      background: var(--ink);
+      color: var(--white);
+      padding: 100px 6vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(181,133,42,0.15) 100%);
+    }
+
+    .contact-inner {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: start;
+    }
+
+    .contact-section .section-label { color: var(--accent); }
+    .contact-section .section-title { color: var(--white); }
+    .contact-section .section-sub { color: rgba(255,255,255,0.5); }
+
+    .contact-details {
+      display: flex; flex-direction: column; gap: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .contact-detail {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+
+    .detail-icon {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .detail-text {
+      display: flex; flex-direction: column;
+    }
+
+    .detail-text span:first-child {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .detail-text span:last-child {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.925rem;
+    }
+
+    .contact-form {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 36px;
+      display: flex; flex-direction: column; gap: 1.1rem;
+    }
+
+    .form-row { display: flex; gap: 1rem; }
+
+    .form-group {
+      display: flex; flex-direction: column; gap: 6px;
+      flex: 1;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 5px;
+      padding: 11px 14px;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .form-group select option { background: #1a1a1a; }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 32px;
+      border: none;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      align-self: flex-start;
+    }
+
+    .btn-accent:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: #111;
+      padding: 32px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    footer .logo { color: rgba(255,255,255,0.7); }
+    footer .logo span { color: var(--accent); }
+
+    footer p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .form-row { flex-direction: column; }
+      .stat-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Sai <span>Global</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Trusted Document Consulting</div>
+      <h1>Your Documents,<br><em>Handled Right.</em></h1>
+      <p>From Patta transfers to birth certificates, Aadhaar updates to property records — we guide you through every step, paperwork to approval.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get Free Consultation</a>
+        <a href="#services" class="btn-outline">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <span class="trust-label">Trusted for</span>
+    <div class="trust-divider"></div>
+    <div class="trust-items">
+      <div class="trust-item"><span class="dot"></span>Patta & Land Records</div>
+      <div class="trust-item"><span class="dot"></span>Birth & Death Certificates</div>
+      <div class="trust-item"><span class="dot"></span>Aadhaar, PAN & Passport</div>
+      <div class="trust-item"><span class="dot"></span>EB Name Transfer</div>
+      <div class="trust-item"><span class="dot"></span>Name Change Gazette</div>
+      <div class="trust-item"><span class="dot"></span>Property Documentation</div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="reveal">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Services We Offer</h2>
+      <p class="section-sub">We handle the complexity of government documentation so you don't have to. Fast, reliable, and fully guided.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">🏡</div>
+        <h3>Patta Transfer</h3>
+        <p>End-to-end assistance with Patta chitta application, mutation, and transfer of land ownership records through Tamil Nadu government portals.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Birth & Death Certificates</h3>
+        <p>Quick registration and certified copies of birth and death certificates from municipal and panchayat offices across Tamil Nadu.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🪪</div>
+        <h3>Aadhaar & PAN Services</h3>
+        <p>New enrollments, corrections, address updates, and linking of Aadhaar with PAN, bank accounts, and other essential services.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏛️</div>
+        <h3>Property Documentation</h3>
+        <p>Encumbrance certificates, property tax registration, legal heir certificates, and related revenue department records.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📝</div>
+        <h3>Affidavits & Notary</h3>
+        <p>Drafting and notarization of affidavits, declarations, and legal documents for personal, property, or educational purposes.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎓</div>
+        <h3>Educational Certificates</h3>
+        <p>Assistance with school leaving certificates, bonafide letters, caste & income certificates needed for admissions and scholarships.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💳</div>
+        <h3>PAN Card Services</h3>
+        <p>New PAN card applications, corrections, reprint requests, and linking with Aadhaar — handled quickly and accurately.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛂</div>
+        <h3>Passport Services</h3>
+        <p>Fresh passport applications, renewals, and Tatkal processing with complete document preparation and appointment guidance.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>EB Name Transfer</h3>
+        <p>Electricity board consumer name transfer for new property owners — we coordinate with TANGEDCO on your behalf seamlessly.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📰</div>
+        <h3>Name Change Gazette</h3>
+        <p>Official name change publication in the Government Gazette with full support for affidavit, newspaper notice, and gazette filing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section how-section" id="how">
+    <div class="reveal">
+      <p class="section-label">The Process</p>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">A simple, transparent process from inquiry to delivery — no unnecessary back-and-forth.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h4>Tell Us What You Need</h4>
+        <p>Call, WhatsApp, or fill out our form. Describe your document requirement and we'll assess the right approach.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h4>Document Checklist</h4>
+        <p>We provide a clear, personalized checklist of what you need to submit — no guessing, no surprise visits.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h4>We File & Follow Up</h4>
+        <p>Our team submits your application, tracks status, and follows up with the relevant office on your behalf.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">04</div>
+        <h4>You Receive Your Document</h4>
+        <p>Once approved, your document is delivered to you — physically or digitally, as needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section" id="why">
+    <div class="why-grid">
+      <div>
+        <div class="reveal">
+          <p class="section-label">Why Choose Us</p>
+          <h2 class="section-title">Reliable Consulting You Can Count On</h2>
+        </div>
+        <div class="why-list reveal">
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <h5>Local Expertise</h5>
+              <p>Deep knowledge of Tamil Nadu government processes, offices, and timelines — so your applications go through without delay.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <h5>Transparent Pricing</h5>
+              <p>No hidden charges. We quote clearly upfront and only proceed with your agreement.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <h5>End-to-End Support</h5>
+              <p>From document preparation to final delivery, we're with you at every step of the process.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-check">✓</div>
+            <div>
+              <h5>Fast Turnaround</h5>
+              <p>We prioritize urgency. Most services are handled faster than standard government timelines.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-visual reveal">
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num">500<span>+</span></div>
+            <div class="stat-label">Clients Served</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">98<span>%</span></div>
+            <div class="stat-label">Success Rate</div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num">10<span>+</span></div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">20<span>+</span></div>
+            <div class="stat-label">Services Offered</div>
+          </div>
+        </div>
+        <div class="testimonial-box">
+          <p>"Sai Global sorted my Patta transfer in under 2 weeks. I'd been stuck for months before approaching them. Highly recommended."</p>
+          <div class="testimonial-author">— Ramesh K., Chennai</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-inner">
+      <div>
+        <p class="section-label">Get In Touch</p>
+        <h2 class="section-title">Let's Solve Your Document Needs</h2>
+        <p class="section-sub">Reach out via call, WhatsApp, or fill the form and we'll get back to you within a few hours.</p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="detail-icon">📞</div>
+            <div class="detail-text">
+              <span>Phone / WhatsApp</span>
+              <span>+91 98765 43210</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="detail-icon">📧</div>
+            <div class="detail-text">
+              <span>Email</span>
+              <span>info@saiglobal.in</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="detail-icon">📍</div>
+            <div class="detail-text">
+              <span>Office</span>
+              <span>Chennai, Tamil Nadu</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="detail-icon">🕐</div>
+            <div class="detail-text">
+              <span>Working Hours</span>
+              <span>Mon – Sat, 9:00 AM – 6:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Full name" />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="+91 XXXXX XXXXX" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Service Required</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Patta Transfer</option>
+            <option>Birth Certificate</option>
+            <option>Death Certificate</option>
+            <option>Aadhaar / PAN Services</option>
+            <option>Property Documentation</option>
+            <option>Affidavit / Notary</option>
+            <option>Educational Certificate</option>
+            <option>PAN Card Services</option>
+            <option>Passport Services</option>
+            <option>EB Name Transfer</option>
+            <option>Name Change Gazette</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea rows="4" placeholder="Briefly describe your requirement..."></textarea>
+        </div>
+        <button class="btn-accent">Send Enquiry →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="logo">Sai <span>Global</span></a>
+    <p>© 2025 Sai Global. All rights reserved. | Document Consulting Services</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
